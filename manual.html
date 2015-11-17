@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "">
-<html><head><link rel="canonical" href="https://ninja-build.org/manual.html"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Ninja</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><style>body {
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>The Ninja build system</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><style>body {
     margin: 5ex 10ex;
     max-width: 80ex;
     line-height: 1.5;
@@ -34,7 +34,7 @@ div.chapter {
 p {
     margin-top: 0;
 }
-</style></head><body><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="idp38067728"></a>Ninja</h1></div></div><hr></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#_introduction">Introduction</a></span><ul><li><span class="section"><a href="#_philosophical_overview">Philosophical overview</a></span></li><li><span class="section"><a href="#_design_goals">Design goals</a></span></li><li><span class="section"><a href="#_comparison_to_make">Comparison to Make</a></span></li></ul></li><li><span class="chapter"><a href="#_using_ninja_for_your_project">Using Ninja for your project</a></span><ul><li><span class="section"><a href="#_running_ninja">Running Ninja</a></span></li><li><span class="section"><a href="#_environment_variables">Environment variables</a></span></li><li><span class="section"><a href="#_extra_tools">Extra tools</a></span></li></ul></li><li><span class="chapter"><a href="#_writing_your_own_ninja_files">Writing your own Ninja files</a></span><ul><li><span class="section"><a href="#_conceptual_overview">Conceptual overview</a></span></li><li><span class="section"><a href="#_syntax_example">Syntax example</a></span></li><li><span class="section"><a href="#_variables">Variables</a></span></li><li><span class="section"><a href="#_rules">Rules</a></span></li><li><span class="section"><a href="#_build_statements">Build statements</a></span></li><li><span class="section"><a href="#_generating_ninja_files_from_code">Generating Ninja files from code</a></span></li></ul></li><li><span class="chapter"><a href="#_more_details">More details</a></span><ul><li><span class="section"><a href="#_the_literal_phony_literal_rule">The <code class="literal">phony</code> rule</a></span></li><li><span class="section"><a href="#_default_target_statements">Default target statements</a></span></li><li><span class="section"><a href="#ref_log">The Ninja log</a></span></li><li><span class="section"><a href="#ref_versioning">Version compatibility</a></span></li><li><span class="section"><a href="#ref_headers">C/C++ header dependencies</a></span><ul><li><span class="section"><a href="#_depfile">depfile</a></span></li><li><span class="section"><a href="#_deps">deps</a></span></li></ul></li><li><span class="section"><a href="#ref_pool">Pools</a></span><ul><li><span class="section"><a href="#_the_literal_console_literal_pool">The <code class="literal">console</code> pool</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#_ninja_file_reference">Ninja file reference</a></span><ul><li><span class="section"><a href="#_lexical_syntax">Lexical syntax</a></span></li><li><span class="section"><a href="#ref_toplevel">Top-level variables</a></span></li><li><span class="section"><a href="#ref_rule">Rule variables</a></span></li><li><span class="section"><a href="#ref_dependencies">Build dependencies</a></span></li><li><span class="section"><a href="#_variable_expansion">Variable expansion</a></span></li><li><span class="section"><a href="#ref_scope">Evaluation and scoping</a></span></li></ul></li></ul></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_introduction"></a>Introduction</h1></div></div></div><p>Ninja is yet another build system.  It takes as input the
+</style></head><body><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="idp58740224"></a>The Ninja build system</h1></div></div><hr></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#_introduction">Introduction</a></span><ul><li><span class="section"><a href="#_philosophical_overview">Philosophical overview</a></span></li><li><span class="section"><a href="#_design_goals">Design goals</a></span></li><li><span class="section"><a href="#_comparison_to_make">Comparison to Make</a></span></li></ul></li><li><span class="chapter"><a href="#_using_ninja_for_your_project">Using Ninja for your project</a></span><ul><li><span class="section"><a href="#_running_ninja">Running Ninja</a></span></li><li><span class="section"><a href="#_environment_variables">Environment variables</a></span></li><li><span class="section"><a href="#_extra_tools">Extra tools</a></span></li></ul></li><li><span class="chapter"><a href="#_writing_your_own_ninja_files">Writing your own Ninja files</a></span><ul><li><span class="section"><a href="#_conceptual_overview">Conceptual overview</a></span></li><li><span class="section"><a href="#_syntax_example">Syntax example</a></span></li><li><span class="section"><a href="#_variables">Variables</a></span></li><li><span class="section"><a href="#_rules">Rules</a></span></li><li><span class="section"><a href="#_build_statements">Build statements</a></span></li><li><span class="section"><a href="#_generating_ninja_files_from_code">Generating Ninja files from code</a></span></li></ul></li><li><span class="chapter"><a href="#_more_details">More details</a></span><ul><li><span class="section"><a href="#_the_literal_phony_literal_rule">The <code class="literal">phony</code> rule</a></span></li><li><span class="section"><a href="#_default_target_statements">Default target statements</a></span></li><li><span class="section"><a href="#ref_log">The Ninja log</a></span></li><li><span class="section"><a href="#ref_versioning">Version compatibility</a></span></li><li><span class="section"><a href="#ref_headers">C/C++ header dependencies</a></span><ul><li><span class="section"><a href="#_depfile">depfile</a></span></li><li><span class="section"><a href="#_deps">deps</a></span></li></ul></li><li><span class="section"><a href="#ref_pool">Pools</a></span><ul><li><span class="section"><a href="#_the_literal_console_literal_pool">The <code class="literal">console</code> pool</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#_ninja_file_reference">Ninja file reference</a></span><ul><li><span class="section"><a href="#_lexical_syntax">Lexical syntax</a></span></li><li><span class="section"><a href="#ref_toplevel">Top-level variables</a></span></li><li><span class="section"><a href="#ref_rule">Rule variables</a></span></li><li><span class="section"><a href="#ref_dependencies">Build dependencies</a></span></li><li><span class="section"><a href="#_variable_expansion">Variable expansion</a></span></li><li><span class="section"><a href="#ref_scope">Evaluation and scoping</a></span></li></ul></li></ul></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_introduction"></a>Introduction</h1></div></div></div><p>Ninja is yet another build system.  It takes as input the
 interdependencies of files (typically source code and output
 executables) and orchestrates building them, <span class="emphasis"><em>quickly</em></span>.</p><p>Ninja joins a sea of other build systems.  Its distinguishing goal is
 to be fast.  It is born from
@@ -521,58 +521,34 @@ about (like slashes in paths) are ASCII.  This means e.g. UTF-8 or
 ISO-8859-1 input files ought to work.</p><p>Comments begin with <code class="literal">#</code> and extend to the end of the line.</p><p>Newlines are significant.  Statements like <code class="literal">build foo bar</code> are a set
 of space-separated tokens that end at the newline.  Newlines and
 spaces within a token must be escaped.</p><p>There is only one escape character, <code class="literal">$</code>, and it has the following
-behaviors:</p><div class="horizontal"><table border="0"><colgroup><col><col></colgroup><tbody valign="top"><tr><td valign="top">
-<p>
+behaviors:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 <code class="literal">$</code> followed by a newline
-</p>
-</td><td valign="top">
-<p>
+</span></dt><dd>
 escape the newline (continue the current line
 across a line break).
-</p>
-</td></tr><tr><td valign="top">
-<p>
+</dd><dt><span class="term">
 <code class="literal">$</code> followed by text
-</p>
-</td><td valign="top">
-<p>
+</span></dt><dd>
 a variable reference.
-</p>
-</td></tr><tr><td valign="top">
-<p>
+</dd><dt><span class="term">
 <code class="literal">${varname}</code>
-</p>
-</td><td valign="top">
-<p>
+</span></dt><dd>
 alternate syntax for <code class="literal">$varname</code>.
-</p>
-</td></tr><tr><td valign="top">
-<p>
+</dd><dt><span class="term">
 <code class="literal">$</code> followed by space
-</p>
-</td><td valign="top">
-<p>
+</span></dt><dd>
 a space.  (This is only necessary in lists of
 paths, where a space would otherwise separate filenames.  See below.)
-</p>
-</td></tr><tr><td valign="top">
-<p>
+</dd><dt><span class="term">
 <code class="literal">$:</code> 
-</p>
-</td><td valign="top">
-<p>
+</span></dt><dd>
 a colon.  (This is only necessary in <code class="literal">build</code> lines, where a colon
 would otherwise terminate the list of outputs.)
-</p>
-</td></tr><tr><td valign="top">
-<p>
+</dd><dt><span class="term">
 <code class="literal">$$</code>
-</p>
-</td><td valign="top">
-<p>
+</span></dt><dd>
 a literal <code class="literal">$</code>.
-</p>
-</td></tr></tbody></table></div><p>A <code class="literal">build</code> or <code class="literal">default</code> statement is first parsed as a space-separated
+</dd></dl></div><p>A <code class="literal">build</code> or <code class="literal">default</code> statement is first parsed as a space-separated
 list of filenames and then each name is expanded.  This means that
 spaces within a variable will result in spaces in the expanded
 filename.</p><pre class="screen">spaced = foo bar
