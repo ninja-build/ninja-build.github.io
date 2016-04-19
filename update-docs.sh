@@ -5,7 +5,7 @@ set -e
 # This script sets up a git commit to push new documentation.
 
 destdir=$(pwd)
-cd ../../ninja
+cd ../ninja
 
 ninja manual
 
