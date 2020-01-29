@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "">
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>The Ninja build system</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"><style>body {
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>The Ninja build system</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><style>body {
     margin: 5ex 10ex;
     max-width: 80ex;
     line-height: 1.5;
@@ -28,7 +28,7 @@ div.chapter {
 p {
     margin-top: 0;
 }
-</style></head><body><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="idm46009450282544"></a>The Ninja build system</h1></div></div><hr></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#_introduction">Introduction</a></span><ul><li><span class="section"><a href="#_philosophical_overview">Philosophical overview</a></span></li><li><span class="section"><a href="#_design_goals">Design goals</a></span></li><li><span class="section"><a href="#_comparison_to_make">Comparison to Make</a></span></li></ul></li><li><span class="chapter"><a href="#_using_ninja_for_your_project">Using Ninja for your project</a></span><ul><li><span class="section"><a href="#_running_ninja">Running Ninja</a></span></li><li><span class="section"><a href="#_environment_variables">Environment variables</a></span></li><li><span class="section"><a href="#_extra_tools">Extra tools</a></span></li></ul></li><li><span class="chapter"><a href="#_writing_your_own_ninja_files">Writing your own Ninja files</a></span><ul><li><span class="section"><a href="#_conceptual_overview">Conceptual overview</a></span></li><li><span class="section"><a href="#_syntax_example">Syntax example</a></span></li><li><span class="section"><a href="#_variables">Variables</a></span></li><li><span class="section"><a href="#_rules">Rules</a></span></li><li><span class="section"><a href="#_build_statements">Build statements</a></span></li><li><span class="section"><a href="#_generating_ninja_files_from_code">Generating Ninja files from code</a></span></li></ul></li><li><span class="chapter"><a href="#_more_details">More details</a></span><ul><li><span class="section"><a href="#_the_literal_phony_literal_rule">The <code class="literal">phony</code> rule</a></span></li><li><span class="section"><a href="#_default_target_statements">Default target statements</a></span></li><li><span class="section"><a href="#ref_log">The Ninja log</a></span></li><li><span class="section"><a href="#ref_versioning">Version compatibility</a></span></li><li><span class="section"><a href="#ref_headers">C/C++ header dependencies</a></span><ul><li><span class="section"><a href="#_depfile">depfile</a></span></li><li><span class="section"><a href="#_deps">deps</a></span></li></ul></li><li><span class="section"><a href="#ref_pool">Pools</a></span><ul><li><span class="section"><a href="#_the_literal_console_literal_pool">The <code class="literal">console</code> pool</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#_ninja_file_reference">Ninja file reference</a></span><ul><li><span class="section"><a href="#_lexical_syntax">Lexical syntax</a></span></li><li><span class="section"><a href="#ref_toplevel">Top-level variables</a></span></li><li><span class="section"><a href="#ref_rule">Rule variables</a></span><ul><li><span class="section"><a href="#ref_rule_command">Interpretation of the <code class="literal">command</code> variable</a></span></li></ul></li><li><span class="section"><a href="#ref_outputs">Build outputs</a></span></li><li><span class="section"><a href="#ref_dependencies">Build dependencies</a></span></li><li><span class="section"><a href="#_variable_expansion">Variable expansion</a></span></li><li><span class="section"><a href="#ref_scope">Evaluation and scoping</a></span></li></ul></li></ul></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_introduction"></a>Introduction</h1></div></div></div><p>Ninja is yet another build system.  It takes as input the
+</style></head><body><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="id-1"></a>The Ninja build system</h1></div><div><div class="author"><h3 class="author"><span class="firstname">v1.10.0,</span> <span class="othername">Jan</span> <span class="surname">2020</span></h3></div></div></div><hr></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#_introduction">Introduction</a></span><ul><li><span class="section"><a href="#_philosophical_overview">Philosophical overview</a></span></li><li><span class="section"><a href="#_design_goals">Design goals</a></span></li><li><span class="section"><a href="#_comparison_to_make">Comparison to Make</a></span></li></ul></li><li><span class="chapter"><a href="#_using_ninja_for_your_project">Using Ninja for your project</a></span><ul><li><span class="section"><a href="#_running_ninja">Running Ninja</a></span></li><li><span class="section"><a href="#_environment_variables">Environment variables</a></span></li><li><span class="section"><a href="#_extra_tools">Extra tools</a></span></li></ul></li><li><span class="chapter"><a href="#_writing_your_own_ninja_files">Writing your own Ninja files</a></span><ul><li><span class="section"><a href="#_conceptual_overview">Conceptual overview</a></span></li><li><span class="section"><a href="#_syntax_example">Syntax example</a></span></li><li><span class="section"><a href="#_variables">Variables</a></span></li><li><span class="section"><a href="#_rules">Rules</a></span></li><li><span class="section"><a href="#_build_statements">Build statements</a></span></li><li><span class="section"><a href="#_generating_ninja_files_from_code">Generating Ninja files from code</a></span></li></ul></li><li><span class="chapter"><a href="#_more_details">More details</a></span><ul><li><span class="section"><a href="#_the_literal_phony_literal_rule">The <code class="literal">phony</code> rule</a></span></li><li><span class="section"><a href="#_default_target_statements">Default target statements</a></span></li><li><span class="section"><a href="#ref_log">The Ninja log</a></span></li><li><span class="section"><a href="#ref_versioning">Version compatibility</a></span></li><li><span class="section"><a href="#ref_headers">C/C++ header dependencies</a></span><ul><li><span class="section"><a href="#_depfile">depfile</a></span></li><li><span class="section"><a href="#_deps">deps</a></span></li></ul></li><li><span class="section"><a href="#ref_pool">Pools</a></span><ul><li><span class="section"><a href="#_the_literal_console_literal_pool">The <code class="literal">console</code> pool</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#ref_ninja_file">Ninja file reference</a></span><ul><li><span class="section"><a href="#ref_lexer">Lexical syntax</a></span></li><li><span class="section"><a href="#ref_toplevel">Top-level variables</a></span></li><li><span class="section"><a href="#ref_rule">Rule variables</a></span><ul><li><span class="section"><a href="#ref_rule_command">Interpretation of the <code class="literal">command</code> variable</a></span></li></ul></li><li><span class="section"><a href="#ref_outputs">Build outputs</a></span></li><li><span class="section"><a href="#ref_dependencies">Build dependencies</a></span></li><li><span class="section"><a href="#_variable_expansion">Variable expansion</a></span></li><li><span class="section"><a href="#ref_scope">Evaluation and scoping</a></span></li></ul></li><li><span class="chapter"><a href="#ref_dyndep">Dynamic Dependencies</a></span><ul><li><span class="section"><a href="#_dyndep_file_reference">Dyndep file reference</a></span></li><li><span class="section"><a href="#_dyndep_examples">Dyndep Examples</a></span><ul><li><span class="section"><a href="#_fortran_modules">Fortran Modules</a></span></li><li><span class="section"><a href="#_tarball_extraction">Tarball Extraction</a></span></li></ul></li></ul></li></ul></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_introduction"></a>Introduction</h1></div></div></div><p>Ninja is yet another build system.  It takes as input the
 interdependencies of files (typically source code and output
 executables) and orchestrates building them, <span class="emphasis"><em>quickly</em></span>.</p><p>Ninja joins a sea of other build systems.  Its distinguishing goal is
 to be fast.  It is born from
@@ -135,7 +135,7 @@ meta-build system.</p><div class="variablelist"><dl class="variablelist"><dt><sp
 </span></dt><dd>
 The meta-build system used to
 generate build files for Google Chrome and related projects (v8,
-node.js), as well as Google Fuschia.  gn can generate Ninja files for
+node.js), as well as Google Fuchsia.  gn can generate Ninja files for
 all platforms supported by Chrome.
 </dd><dt><span class="term">
 <a class="ulink" href="https://cmake.org/" target="_top">CMake</a>
@@ -147,7 +147,7 @@ of CMake support generating Ninja files on Windows and Mac OS X too.
 <a class="ulink" href="https://github.com/ninja-build/ninja/wiki/List-of-generators-producing-ninja-build-files" target="_top">others</a>
 </span></dt><dd>
 Ninja ought to fit perfectly into other meta-build software
-like <a class="ulink" href="http://industriousone.com/premake" target="_top">premake</a>.  If you do this work,
+like <a class="ulink" href="https://premake.github.io/" target="_top">premake</a>.  If you do this work,
 please let us know!
 </dd></dl></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_running_ninja"></a>Running Ninja</h2></div></div></div><p>Run <code class="literal">ninja</code>.  By default, it looks for a file named <code class="literal">build.ninja</code> in
 the current directory and builds all out-of-date targets.  You can
@@ -285,6 +285,15 @@ tool takes in account the <code class="literal">-v</code> and the <code class="l
 implies <code class="literal">-v</code>).</p>
 </td></tr><tr><td valign="top">
 <p>
+<code class="literal">cleandead</code>
+</p>
+</td><td valign="top">
+<p>
+remove files produced by previous builds that are no longer in the
+manifest. <span class="emphasis"><em>Available since Ninja 1.10.</em></span>
+</p>
+</td></tr><tr><td valign="top">
+<p>
 <code class="literal">compdb</code>
 </p>
 </td><td valign="top">
@@ -312,6 +321,25 @@ target, show just the target’s dependencies. <span class="emphasis"><em>Availa
 </td><td valign="top">
 <p>
 recompact the <code class="literal">.ninja_deps</code> file. <span class="emphasis"><em>Available since Ninja 1.4.</em></span>
+</p>
+</td></tr><tr><td valign="top">
+<p>
+<code class="literal">restat</code>
+</p>
+</td><td valign="top">
+<p>
+updates all recorded file modification timestamps in the <code class="literal">.ninja_log</code>
+file. <span class="emphasis"><em>Available since Ninja 1.10.</em></span>
+</p>
+</td></tr><tr><td valign="top">
+<p>
+<code class="literal">rules</code>
+</p>
+</td><td valign="top">
+<p>
+output the list of all rules (eventually with their description
+if they have one).  It can be used to know which rule name to pass to
+<code class="literal">ninja -t targets rule <span class="emphasis"><em>name</em></span></code> or <code class="literal">ninja -t compdb</code>.
 </p>
 </td></tr></tbody></table></div></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_writing_your_own_ninja_files"></a>Writing your own Ninja files</h1></div></div></div><p>The remainder of this manual is only useful if you are constructing
 Ninja files yourself: for example, if you’re writing a meta-build
@@ -383,7 +411,10 @@ command count printed as part of the build process.</p><p><code class="literal">
 may not exist at build time.  If a phony build statement is written
 without any dependencies, the target will be considered out of date if
 it does not exist.  Without a phony build statement, Ninja will report
-an error if the file does not exist and is required by the build.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_default_target_statements"></a>Default target statements</h2></div></div></div><p>By default, if no targets are specified on the command line, Ninja
+an error if the file does not exist and is required by the build.</p><p>To create a rule that never rebuilds, use a build rule without any input:</p><pre class="screen">rule touch
+  command = touch $out
+build file_that_always_exists.dummy: touch
+build dummy_target_to_follow_a_pattern: phony file_that_always_exists.dummy</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_default_target_statements"></a>Default target statements</h2></div></div></div><p>By default, if no targets are specified on the command line, Ninja
 will build every output that is not named as an input elsewhere.
 You can override this behavior using a default target statement.
 A default target statement causes Ninja to build only a given subset
@@ -432,7 +463,7 @@ subset of the Makefile syntax emitted by compilers.)  Then the command
 must know to write dependencies into the <code class="literal">depfile</code> path.
 Use it like in the following example:</p><pre class="screen">rule cc
   depfile = $out.d
-  command = gcc -MMD -MF $out.d [other gcc flags here]</pre><p>The <code class="literal">-MMD</code> flag to <code class="literal">gcc</code> tells it to output header dependencies, and
+  command = gcc -MD -MF $out.d [other gcc flags here]</pre><p>The <code class="literal">-MD</code> flag to <code class="literal">gcc</code> tells it to output header dependencies, and
 the <code class="literal">-MF</code> flag tells it where to write them.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_deps"></a>deps</h3></div></div></div><p><span class="emphasis"><em>(Available since Ninja 1.3.)</em></span></p><p>It turns out that for large projects (and particularly on Windows,
 where the file system is slow) loading these dependency files on
 startup is slow.</p><p>Ninja 1.3 can instead process dependencies just after they’re generated
@@ -503,7 +534,7 @@ normally connected to the user’s console (hence the name) but could be
 redirected. This can be useful for interactive tasks or long-running tasks
 which produce status updates on the console (such as test suites).</p><p>While a task in the <code class="literal">console</code> pool is running, Ninja’s regular output (such
 as progress status and output from concurrent tasks) is buffered until
-it completes.</p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_ninja_file_reference"></a>Ninja file reference</h1></div></div></div><p>A file is a series of declarations.  A declaration can be one of:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+it completes.</p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="ref_ninja_file"></a>Ninja file reference</h1></div></div></div><p>A file is a series of declarations.  A declaration can be one of:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
 A rule declaration, which begins with <code class="literal">rule <span class="emphasis"><em>rulename</em></span></code>, and
    then has a series of indented lines defining variables.
 </li><li class="listitem"><p class="simpara">
@@ -526,7 +557,7 @@ References to more files, which look like <code class="literal">subninja <span c
 </li><li class="listitem">
 A pool declaration, which looks like <code class="literal">pool <span class="emphasis"><em>poolname</em></span></code>. Pools are explained
    <a class="link" href="#ref_pool" title="Pools">in the section on pools</a>.
-</li></ol></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_lexical_syntax"></a>Lexical syntax</h2></div></div></div><p>Ninja is mostly encoding agnostic, as long as the bytes Ninja cares
+</li></ol></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ref_lexer"></a>Lexical syntax</h2></div></div></div><p>Ninja is mostly encoding agnostic, as long as the bytes Ninja cares
 about (like slashes in paths) are ASCII.  This means e.g. UTF-8 or
 ISO-8859-1 input files ought to work.</p><p>Comments begin with <code class="literal">#</code> and extend to the end of the line.</p><p>Newlines are significant.  Statements like <code class="literal">build foo bar</code> are a set
 of space-separated tokens that end at the newline.  Newlines and
@@ -614,6 +645,13 @@ a short description of the command, used to pretty-print
   the command as it’s running.  The <code class="literal">-v</code> flag controls whether to print
   the full command or its description; if a command fails, the full command
   line will always be printed before the command’s output.
+</dd><dt><span class="term">
+<code class="literal">dyndep</code>
+</span></dt><dd>
+<span class="emphasis"><em>(Available since Ninja 1.10.)</em></span> Used only on build statements.
+  If present, must name one of the build statement inputs.  Dynamically
+  discovered dependency information will be loaded from the file.
+  See the <a class="link" href="#ref_dyndep" title="Dynamic Dependencies">dynamic dependencies</a> section for details.
 </dd><dt><span class="term">
 <code class="literal">generator</code>
 </span></dt><dd>
@@ -746,4 +784,77 @@ File-level variables from the file that the <code class="literal">build</code> l
 </li><li class="listitem">
 Variables from the file that included that file using the
    <code class="literal">subninja</code> keyword.
-</li></ol></div></div></div></div></body></html>
+</li></ol></div></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="ref_dyndep"></a>Dynamic Dependencies</h1></div></div></div><p><span class="emphasis"><em>Available since Ninja 1.10.</em></span></p><p>Some use cases require implicit dependency information to be dynamically
+discovered from source file content <span class="emphasis"><em>during the build</em></span> in order to build
+correctly on the first run (e.g. Fortran module dependencies).  This is
+unlike <a class="link" href="#ref_headers" title="C/C++ header dependencies">header dependencies</a> which are only needed on the
+second run and later to rebuild correctly.  A build statement may have a
+<code class="literal">dyndep</code> binding naming one of its inputs to specify that dynamic
+dependency information must be loaded from the file.  For example:</p><pre class="screen">build out: ... || foo
+  dyndep = foo
+build foo: ...</pre><p>This specifies that file <code class="literal">foo</code> is a dyndep file.  Since it is an input,
+the build statement for <code class="literal">out</code> can never be executed before <code class="literal">foo</code> is built.
+As soon as <code class="literal">foo</code> is finished Ninja will read it to load dynamically
+discovered dependency information for <code class="literal">out</code>.  This may include additional
+implicit inputs and/or outputs.  Ninja will update the build graph
+accordingly and the build will proceed as if the information was known
+originally.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_dyndep_file_reference"></a>Dyndep file reference</h2></div></div></div><p>Files specified by <code class="literal">dyndep</code> bindings use the same <a class="link" href="#ref_lexer" title="Lexical syntax">lexical syntax</a>
+as <a class="link" href="#ref_ninja_file" title="Ninja file reference">ninja build files</a> and have the following layout.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">
+A version number in the form <code class="literal">&lt;major&gt;[.&lt;minor&gt;][&lt;suffix&gt;]</code>:
+</p><pre class="screen">ninja_dyndep_version = 1</pre><p class="simpara">Currently the version number must always be <code class="literal">1</code> or <code class="literal">1.0</code> but may have
+an arbitrary suffix.</p></li><li class="listitem"><p class="simpara">
+One or more build statements of the form:
+</p><pre class="screen">build out | imp-outs... : dyndep | imp-ins...</pre><p class="simpara">Every statement must specify exactly one explicit output and must use
+the rule name <code class="literal">dyndep</code>.  The <code class="literal">| imp-outs...</code> and <code class="literal">| imp-ins...</code> portions
+are optional.</p></li><li class="listitem">
+An optional <code class="literal">restat</code> <a class="link" href="#ref_rule" title="Rule variables">variable binding</a> on each build statement.
+</li></ol></div><p>The build statements in a dyndep file must have a one-to-one correspondence
+to build statements in the <a class="link" href="#ref_ninja_file" title="Ninja file reference">ninja build file</a> that name the
+dyndep file in a <code class="literal">dyndep</code> binding.  No dyndep build statement may be omitted
+and no extra build statements may be specified.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_dyndep_examples"></a>Dyndep Examples</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_fortran_modules"></a>Fortran Modules</h3></div></div></div><p>Consider a Fortran source file <code class="literal">foo.f90</code> that provides a module
+<code class="literal">foo.mod</code> (an implicit output of compilation) and another source file
+<code class="literal">bar.f90</code> that uses the module (an implicit input of compilation).  This
+implicit dependency must be discovered before we compile either source
+in order to ensure that <code class="literal">bar.f90</code> never compiles before <code class="literal">foo.f90</code>, and
+that <code class="literal">bar.f90</code> recompiles when <code class="literal">foo.mod</code> changes.  We can achieve this
+as follows:</p><pre class="screen">rule f95
+  command = f95 -o $out -c $in
+rule fscan
+  command = fscan -o $out $in
+
+build foobar.dd: fscan foo.f90 bar.f90
+
+build foo.o: f95 foo.f90 || foobar.dd
+  dyndep = foobar.dd
+build bar.o: f95 bar.f90 || foobar.dd
+  dyndep = foobar.dd</pre><p>In this example the order-only dependencies ensure that <code class="literal">foobar.dd</code> is
+generated before either source compiles.  The hypothetical <code class="literal">fscan</code> tool
+scans the source files, assumes each will be compiled to a <code class="literal">.o</code> of the
+same name, and writes <code class="literal">foobar.dd</code> with content such as:</p><pre class="screen">ninja_dyndep_version = 1
+build foo.o | foo.mod: dyndep
+build bar.o: dyndep |  foo.mod</pre><p>Ninja will load this file to add <code class="literal">foo.mod</code> as an implicit output of
+<code class="literal">foo.o</code> and implicit input of <code class="literal">bar.o</code>.  This ensures that the Fortran
+sources are always compiled in the proper order and recompiled when
+needed.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_tarball_extraction"></a>Tarball Extraction</h3></div></div></div><p>Consider a tarball <code class="literal">foo.tar</code> that we want to extract.  The extraction time
+can be recorded with a <code class="literal">foo.tar.stamp</code> file so that extraction repeats if
+the tarball changes, but we also would like to re-extract if any of the
+outputs is missing.  However, the list of outputs depends on the content
+of the tarball and cannot be spelled out explicitly in the ninja build file.
+We can achieve this as follows:</p><pre class="screen">rule untar
+  command = tar xf $in &amp;&amp; touch $out
+rule scantar
+  command = scantar --stamp=$stamp --dd=$out $in
+build foo.tar.dd: scantar foo.tar
+  stamp = foo.tar.stamp
+build foo.tar.stamp: untar foo.tar || foo.tar.dd
+  dyndep = foo.tar.dd</pre><p>In this example the order-only dependency ensures that <code class="literal">foo.tar.dd</code> is
+built before the tarball extracts.  The hypothetical <code class="literal">scantar</code> tool
+will read the tarball (e.g. via <code class="literal">tar tf</code>) and write <code class="literal">foo.tar.dd</code> with
+content such as:</p><pre class="screen">ninja_dyndep_version = 1
+build foo.tar.stamp | file1.txt file2.txt : dyndep
+  restat = 1</pre><p>Ninja will load this file to add <code class="literal">file1.txt</code> and <code class="literal">file2.txt</code> as implicit
+outputs of <code class="literal">foo.tar.stamp</code>, and to mark the build statement for <code class="literal">restat</code>.
+On future builds, if any implicit output is missing the tarball will be
+extracted again.  The <code class="literal">restat</code> binding tells Ninja to tolerate the fact
+that the implicit outputs may not have modification times newer than
+the tarball itself (avoiding re-extraction on every build).</p></div></div></div></div></body></html>
