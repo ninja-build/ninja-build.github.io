@@ -63,7 +63,7 @@ button:hover {
   background-color: #161b12;
   color: #fff;
   border-radius: 5px;
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
 }
 
 .cmd-container > code > ul > li:before {
