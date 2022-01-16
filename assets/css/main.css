@@ -1,0 +1,81 @@
+:root {
+  --main-color: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+
+html, body {
+  font-family: sans-serif;
+  margin: 5ex 10ex;
+}
+
+tt, code {
+  font-family: "WebKitWorkaround", monospace;
+  font-size: 15px;
+}
+
+main {
+  float: left;
+  max-width: 65ex;
+  margin-right: 5ex;
+}
+
+aside {
+  float: left;
+  max-width: 20ex;
+}
+
+h1 {
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 100%;
+  margin: 10px 0 15px 0;
+}
+
+p {
+  margin: 5px;
+}
+
+button {
+  background-color: #111314;
+  width: 100px;
+  height: 50px;
+  margin-top: 10px;
+}
+
+button:hover {
+  opacity: 95%;
+}
+
+.third-party {
+  width: 32px;
+  height: 32px;
+}
+
+.cmd-container {
+  background-color: #161b12;
+  color: #fff;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.cmd-container > code > ul > li:before {
+  content: "$ ";
+}
+
+a:link, a:visited, a:active {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
