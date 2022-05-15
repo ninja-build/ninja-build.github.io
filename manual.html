@@ -28,7 +28,7 @@ div.chapter {
 p {
     margin-top: 0;
 }
-</style></head><body><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="id-1"></a>The Ninja build system</h1></div><div><div class="author"><h3 class="author"><span class="firstname">v1.10.2,</span> <span class="othername">Nov</span> <span class="surname">2020</span></h3></div></div></div><hr></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#_introduction">Introduction</a></span><ul><li><span class="section"><a href="#_philosophical_overview">Philosophical overview</a></span></li><li><span class="section"><a href="#_design_goals">Design goals</a></span></li><li><span class="section"><a href="#_comparison_to_make">Comparison to Make</a></span></li></ul></li><li><span class="chapter"><a href="#_using_ninja_for_your_project">Using Ninja for your project</a></span><ul><li><span class="section"><a href="#_running_ninja">Running Ninja</a></span></li><li><span class="section"><a href="#_environment_variables">Environment variables</a></span></li><li><span class="section"><a href="#_extra_tools">Extra tools</a></span></li></ul></li><li><span class="chapter"><a href="#_writing_your_own_ninja_files">Writing your own Ninja files</a></span><ul><li><span class="section"><a href="#_conceptual_overview">Conceptual overview</a></span></li><li><span class="section"><a href="#_syntax_example">Syntax example</a></span></li><li><span class="section"><a href="#_variables">Variables</a></span></li><li><span class="section"><a href="#_rules">Rules</a></span></li><li><span class="section"><a href="#_build_statements">Build statements</a></span></li><li><span class="section"><a href="#_generating_ninja_files_from_code">Generating Ninja files from code</a></span></li></ul></li><li><span class="chapter"><a href="#_more_details">More details</a></span><ul><li><span class="section"><a href="#_the_literal_phony_literal_rule">The <code class="literal">phony</code> rule</a></span></li><li><span class="section"><a href="#_default_target_statements">Default target statements</a></span></li><li><span class="section"><a href="#ref_log">The Ninja log</a></span></li><li><span class="section"><a href="#ref_versioning">Version compatibility</a></span></li><li><span class="section"><a href="#ref_headers">C/C++ header dependencies</a></span><ul><li><span class="section"><a href="#_depfile">depfile</a></span></li><li><span class="section"><a href="#_deps">deps</a></span></li></ul></li><li><span class="section"><a href="#ref_pool">Pools</a></span><ul><li><span class="section"><a href="#_the_literal_console_literal_pool">The <code class="literal">console</code> pool</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#ref_ninja_file">Ninja file reference</a></span><ul><li><span class="section"><a href="#ref_lexer">Lexical syntax</a></span></li><li><span class="section"><a href="#ref_toplevel">Top-level variables</a></span></li><li><span class="section"><a href="#ref_rule">Rule variables</a></span><ul><li><span class="section"><a href="#ref_rule_command">Interpretation of the <code class="literal">command</code> variable</a></span></li></ul></li><li><span class="section"><a href="#ref_outputs">Build outputs</a></span></li><li><span class="section"><a href="#ref_dependencies">Build dependencies</a></span></li><li><span class="section"><a href="#_variable_expansion">Variable expansion</a></span></li><li><span class="section"><a href="#ref_scope">Evaluation and scoping</a></span></li></ul></li><li><span class="chapter"><a href="#ref_dyndep">Dynamic Dependencies</a></span><ul><li><span class="section"><a href="#_dyndep_file_reference">Dyndep file reference</a></span></li><li><span class="section"><a href="#_dyndep_examples">Dyndep Examples</a></span><ul><li><span class="section"><a href="#_fortran_modules">Fortran Modules</a></span></li><li><span class="section"><a href="#_tarball_extraction">Tarball Extraction</a></span></li></ul></li></ul></li></ul></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_introduction"></a>Introduction</h1></div></div></div><p>Ninja is yet another build system.  It takes as input the
+</style></head><body><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="id-1"></a>The Ninja build system</h1></div><div><div class="author"><h3 class="author"><span class="firstname">v1.11.0,</span> <span class="othername">Nov</span> <span class="surname">2020</span></h3></div></div></div><hr></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#_introduction">Introduction</a></span><ul><li><span class="section"><a href="#_philosophical_overview">Philosophical overview</a></span></li><li><span class="section"><a href="#_design_goals">Design goals</a></span></li><li><span class="section"><a href="#_comparison_to_make">Comparison to Make</a></span></li></ul></li><li><span class="chapter"><a href="#_using_ninja_for_your_project">Using Ninja for your project</a></span><ul><li><span class="section"><a href="#_running_ninja">Running Ninja</a></span></li><li><span class="section"><a href="#_environment_variables">Environment variables</a></span></li><li><span class="section"><a href="#_extra_tools">Extra tools</a></span></li></ul></li><li><span class="chapter"><a href="#_writing_your_own_ninja_files">Writing your own Ninja files</a></span><ul><li><span class="section"><a href="#_conceptual_overview">Conceptual overview</a></span></li><li><span class="section"><a href="#_syntax_example">Syntax example</a></span></li><li><span class="section"><a href="#_variables">Variables</a></span></li><li><span class="section"><a href="#_rules">Rules</a></span></li><li><span class="section"><a href="#_build_statements">Build statements</a></span></li><li><span class="section"><a href="#_generating_ninja_files_from_code">Generating Ninja files from code</a></span></li></ul></li><li><span class="chapter"><a href="#_more_details">More details</a></span><ul><li><span class="section"><a href="#_the_literal_phony_literal_rule">The <code class="literal">phony</code> rule</a></span></li><li><span class="section"><a href="#_default_target_statements">Default target statements</a></span></li><li><span class="section"><a href="#ref_log">The Ninja log</a></span></li><li><span class="section"><a href="#ref_versioning">Version compatibility</a></span></li><li><span class="section"><a href="#ref_headers">C/C++ header dependencies</a></span><ul><li><span class="section"><a href="#_depfile">depfile</a></span></li><li><span class="section"><a href="#_deps">deps</a></span></li></ul></li><li><span class="section"><a href="#ref_pool">Pools</a></span><ul><li><span class="section"><a href="#_the_literal_console_literal_pool">The <code class="literal">console</code> pool</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#ref_ninja_file">Ninja file reference</a></span><ul><li><span class="section"><a href="#ref_lexer">Lexical syntax</a></span></li><li><span class="section"><a href="#ref_toplevel">Top-level variables</a></span></li><li><span class="section"><a href="#ref_rule">Rule variables</a></span><ul><li><span class="section"><a href="#ref_rule_command">Interpretation of the <code class="literal">command</code> variable</a></span></li></ul></li><li><span class="section"><a href="#ref_outputs">Build outputs</a></span></li><li><span class="section"><a href="#ref_dependencies">Build dependencies</a></span></li><li><span class="section"><a href="#validations">Validations</a></span></li><li><span class="section"><a href="#_variable_expansion">Variable expansion</a></span></li><li><span class="section"><a href="#ref_scope">Evaluation and scoping</a></span></li></ul></li><li><span class="chapter"><a href="#ref_dyndep">Dynamic Dependencies</a></span><ul><li><span class="section"><a href="#_dyndep_file_reference">Dyndep file reference</a></span></li><li><span class="section"><a href="#_dyndep_examples">Dyndep Examples</a></span><ul><li><span class="section"><a href="#_fortran_modules">Fortran Modules</a></span></li><li><span class="section"><a href="#_tarball_extraction">Tarball Extraction</a></span></li></ul></li></ul></li></ul></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_introduction"></a>Introduction</h1></div></div></div><p>Ninja is yet another build system.  It takes as input the
 interdependencies of files (typically source code and output
 executables) and orchestrates building them, <span class="emphasis"><em>quickly</em></span>.</p><p>Ninja joins a sea of other build systems.  Its distinguishing goal is
 to be fast.  It is born from
@@ -268,6 +268,16 @@ output files are out of date.
 </p>
 </td></tr><tr><td valign="top">
 <p>
+<code class="literal">inputs</code>
+</p>
+</td><td valign="top">
+<p>
+given a list of targets, print a list of all inputs used to
+rebuild those targets.
+<span class="emphasis"><em>Available since Ninja 1.11.</em></span>
+</p>
+</td></tr><tr><td valign="top">
+<p>
 <code class="literal">clean</code>
 </p>
 </td><td valign="top">
@@ -316,6 +326,25 @@ target, show just the target’s dependencies. <span class="emphasis"><em>Availa
 </p>
 </td></tr><tr><td valign="top">
 <p>
+<code class="literal">missingdeps</code>
+</p>
+</td><td valign="top">
+<p>
+given a list of targets, look for targets that depend on
+a generated file, but do not have a properly (possibly transitive) dependency
+on the generator.  Such targets may cause build flakiness on clean builds.
+</p>
+<p>The broken targets can be found assuming deps log / depfile dependency
+information is correct.  Any target that depends on a generated file (output
+of a generator-target) implicitly, but does not have an explicit or order-only
+dependency path to the generator-target, is considered broken.</p>
+<p>The tool’s findings can be verified by trying to build the listed targets in
+a clean outdir without building any other targets.  The build should fail for
+each of them with a missing include error or equivalent pointing to the
+generated file.
+<span class="emphasis"><em>Available since Ninja 1.11.</em></span></p>
+</td></tr><tr><td valign="top">
+<p>
 <code class="literal">recompact</code>
 </p>
 </td><td valign="top">
@@ -337,11 +366,50 @@ file. <span class="emphasis"><em>Available since Ninja 1.10.</em></span>
 </p>
 </td><td valign="top">
 <p>
-output the list of all rules (eventually with their description
-if they have one).  It can be used to know which rule name to pass to
-<code class="literal">ninja -t targets rule <span class="emphasis"><em>name</em></span></code> or <code class="literal">ninja -t compdb</code>.
+output the list of all rules. It can be used to know which rule name
+to pass to <code class="literal">ninja -t targets rule <span class="emphasis"><em>name</em></span></code> or <code class="literal">ninja -t compdb</code>. Adding the <code class="literal">-d</code>
+flag also prints the description of the rules.
 </p>
-</td></tr></tbody></table></div></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_writing_your_own_ninja_files"></a>Writing your own Ninja files</h1></div></div></div><p>The remainder of this manual is only useful if you are constructing
+</td></tr><tr><td valign="top">
+<p>
+<code class="literal">msvc</code>
+</p>
+</td><td valign="top">
+<p>
+Available on Windows hosts only.
+Helper tool to invoke the <code class="literal">cl.exe</code> compiler with a pre-defined set of
+environment variables, as in:
+</p>
+<pre class="screen">ninja -t msvc -e ENVFILE -- cl.exe &lt;arguments&gt;</pre>
+<p>Where <code class="literal">ENVFILE</code> is a binary file that contains an environment block suitable
+for CreateProcessA() on Windows (i.e. a series of zero-terminated strings that
+look like NAME=VALUE, followed by an extra zero terminator). Note that this uses
+the local codepage encoding.</p>
+</td></tr></tbody></table></div><p>This tool also supports a deprecated way of parsing the compiler’s output when
+the <code class="literal">/showIncludes</code> flag is used, and generating a GCC-compatible depfile from it.</p><p>+
+---
+ninja -t msvc -o DEPFILE [-p STRING] — cl.exe /showIncludes &lt;arguments&gt;
+---</p><p>+</p><p>When using this option, <code class="literal">-p STRING</code> can be used to pass the localized line prefix
+that <code class="literal">cl.exe</code> uses to output dependency information. For English-speaking regions
+this is <code class="literal">"Note: including file: "</code> without the double quotes, but will be different
+for other regions.</p><p>Note that Ninja supports this natively now, with the use of <code class="literal">deps = msvc</code> and
+<code class="literal">msvc_deps_prefix</code> in Ninja files. Native support also avoids launching an extra
+tool process each time the compiler must be called, which can speed up builds
+noticeably on Windows.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+<code class="literal">wincodepage</code>
+</span></dt><dd><p class="simpara">
+Available on Windows hosts (<span class="emphasis"><em>since Ninja 1.11</em></span>).
+Prints the Windows code page whose encoding is expected in the build file.
+The output has the form:
+</p><pre class="screen">Build file encoding: &lt;codepage&gt;</pre><p class="simpara">Additional lines may be added in future versions of Ninja.</p><p class="simpara">The <code class="literal">&lt;codepage&gt;</code> is one of:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+<code class="literal">UTF-8</code>
+</span></dt><dd>
+Encode as UTF-8.
+</dd><dt><span class="term">
+<code class="literal">ANSI</code>
+</span></dt><dd>
+Encode to the system-wide ANSI code page.
+</dd></dl></div></dd></dl></div></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_writing_your_own_ninja_files"></a>Writing your own Ninja files</h1></div></div></div><p>The remainder of this manual is only useful if you are constructing
 Ninja files yourself: for example, if you’re writing a meta-build
 system or supporting a new language.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_conceptual_overview"></a>Conceptual overview</h2></div></div></div><p>Ninja evaluates a graph of dependencies between files, and runs
 whichever commands are necessary to make your build target up to date
@@ -407,7 +475,10 @@ targets.  For example:</p><pre class="screen">build foo: phony some/file/in/a/fa
 <code class="literal">phony</code> rule is equivalent to a plain rule where the <code class="literal">command</code> does
 nothing, but phony rules are handled specially in that they aren’t
 printed when run, logged (see below), nor do they contribute to the
-command count printed as part of the build process.</p><p><code class="literal">phony</code> can also be used to create dummy targets for files which
+command count printed as part of the build process.</p><p>When a <code class="literal">phony</code> target is used as an input to another build rule, the
+other build rule will, semantically, consider the inputs of the
+<code class="literal">phony</code> rule as its own. Therefore, <code class="literal">phony</code> rules can be used to group
+inputs, e.g. header files.</p><p><code class="literal">phony</code> can also be used to create dummy targets for files which
 may not exist at build time.  If a phony build statement is written
 without any dependencies, the target will be considered out of date if
 it does not exist.  Without a phony build statement, Ninja will report
@@ -544,6 +615,8 @@ A build edge, which looks like <code class="literal">build <span class="emphasis
    <span class="emphasis"><em>dependency1</em></span> <span class="emphasis"><em>dependency2</em></span></code>.
    Order-only dependencies may be tacked on the end with <code class="literal">||
    <span class="emphasis"><em>dependency1</em></span> <span class="emphasis"><em>dependency2</em></span></code>.  (See <a class="link" href="#ref_dependencies" title="Build dependencies">the reference on    dependency types</a>.)
+   Validations may be taked on the end with <code class="literal">|@ <span class="emphasis"><em>validation1</em></span> <span class="emphasis"><em>validation2</em></span></code>.
+   (See <a class="link" href="#validations" title="Validations">the reference on validations</a>.)
 </p><p class="simpara">Implicit outputs <span class="emphasis"><em>(available since Ninja 1.7)</em></span> may be added before
 the <code class="literal">:</code> with <code class="literal">| <span class="emphasis"><em>output1</em></span> <span class="emphasis"><em>output2</em></span></code> and do not appear in <code class="literal">$out</code>.
 (See <a class="link" href="#ref_outputs" title="Build outputs">the reference on output types</a>.)</p></li><li class="listitem">
@@ -740,8 +813,9 @@ source file of a compile command.</p></li><li class="listitem"><p class="simpara
    don’t show up in the <code class="literal">$in</code> variable.
 </p><p class="simpara">This is for expressing dependencies that don’t show up on the
 command line of the command; for example, for a rule that runs a
-script, the script itself should be an implicit dependency, as
-changes to the script should cause the output to rebuild.</p><p class="simpara">Note that dependencies as loaded through depfiles have slightly different
+script that reads a hardcoded file, the hardcoded file should
+be an implicit dependency, as changes to the file should cause
+the output to rebuild, even though it doesn’t show up in the arguments.</p><p class="simpara">Note that dependencies as loaded through depfiles have slightly different
 semantics, as described in the <a class="link" href="#ref_rule" title="Rule variables">rule reference</a>.</p></li><li class="listitem"><p class="simpara">
 <span class="emphasis"><em>Order-only dependencies</em></span>, expressed with the syntax <code class="literal">|| <span class="emphasis"><em>dep1</em></span>
    <span class="emphasis"><em>dep2</em></span></code> on the end of a build line.  When these are out of date, the
@@ -752,7 +826,21 @@ that are only discovered during build time: for example, to generate a
 header file before starting a subsequent compilation step.  (Once the
 header is used in compilation, a generated dependency file will then
 express the implicit dependency.)</p></li></ol></div><p>File paths are compared as is, which means that an absolute path and a
-relative path, pointing to the same file, are considered different by Ninja.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_variable_expansion"></a>Variable expansion</h2></div></div></div><p>Variables are expanded in paths (in a <code class="literal">build</code> or <code class="literal">default</code> statement)
+relative path, pointing to the same file, are considered different by Ninja.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="validations"></a>Validations</h2></div></div></div><p><span class="emphasis"><em>Available since Ninja 1.11.</em></span></p><p>Validations listed on the build line cause the specified files to be
+added to the top level of the build graph (as if they were specified
+on the Ninja command line) whenever the build line is a transitive
+dependency of one of the targets specified on the command line or a
+default target.</p><p>Validations are added to the build graph regardless of whether the output
+files of the build statement are dirty are not, and the dirty state of
+the build statement that outputs the file being used as a validation
+has no effect on the dirty state of the build statement that requested it.</p><p>A build edge can list another build edge as a validation even if the second
+edge depends on the first.</p><p>Validations are designed to handle rules that perform error checking but
+don’t produce any artifacts needed by the build, for example static
+analysis tools.  Marking the static analysis rule as an implicit input
+of the main build rule of the source files or of the rules that depend
+on the main build rule would slow down the critical path of the build,
+but using a validation would allow the build to proceed in parallel with
+the static analysis rule once the main build rule is complete.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_variable_expansion"></a>Variable expansion</h2></div></div></div><p>Variables are expanded in paths (in a <code class="literal">build</code> or <code class="literal">default</code> statement)
 and on the right side of a <code class="literal">name = value</code> statement.</p><p>When a <code class="literal">name = value</code> statement is evaluated, its right-hand side is
 expanded immediately (according to the below scoping rules), and
 from then on <code class="literal">$name</code> expands to the static string as the result of the
