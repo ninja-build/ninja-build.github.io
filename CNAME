@@ -1,6 +1,6 @@
 ninja-build.org
-cmake.CNAME
-https://github.com/netty/netty  <packaging>jar</packaging>
+cmake.[CNAME`]
+(https://github.com/netty/netty<packaging>jar</packaging>)`
 
   <name>Netty/Transport</name>
 
