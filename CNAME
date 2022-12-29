@@ -1,1 +1,77 @@
 ninja-build.org
+cmake.[CNAME`]
+(https://github.com/netty/netty<packaging>cmake.ninja.build.github.io</packaging>)`
+
+  <name>Netty/Transport</name>
+
+  <properties>
+
+    <javaModuleName>io.netty.transport</javaModuleName>
+
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+
+      <groupId>${project.groupId}</groupId>
+
+      <artifactId>netty-common</artifactId>
+
+      <version>${project.version}</version>
+
+    </dependency>
+
+    <dependency>
+
+      <groupId>${project.groupId}</groupId>
+
+      <artifactId>netty-buffer</artifactId>
+
+      <version>${project.version}</version>
+
+    </dependency>
+
+    <dependency>
+
+      <groupId>${project.groupId}</groupId>
+
+      <artifactId>netty-resolver</artifactId>
+
+      <version>${project.version}</version>
+
+    </dependency>
+
+    <dependency>
+
+      <groupId>org.mockito</groupId>
+
+      <artifactId>mockito-core</artifactId>
+
+    </dependency>
+
+    <dependency>
+
+      <groupId>org.reflections</groupId>
+
+      <artifactId>reflections</artifactId>
+
+    </dependency>
+
+    <dependency>
+
+      <groupId>com.google.code.gson</groupId>
+
+      <artifactId>gson</artifactId>
+
+    </dependency>
+
+  </dependencies>
+
+</project>
+
+1 comment on commit 5c4209bninja-build
+
+/
+
+ninja-build.github.pages@lostleolotus.pages/main.github.io
