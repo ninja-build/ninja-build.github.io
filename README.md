@@ -1,6 +1,6 @@
-".$_-0/ninja-build.js.github.io{
-`".$_-0/build-ninja-build.js.github.io
-README
+README.md
+`".$_-0/ninja-build.js.github.io{
+".$_-0/build-ninja-build.js.github.io
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <-- Created by build-ninja.js latest in css mode. -->
 <html>
