@@ -1,4 +1,4 @@
-README.md
+README
 `".$_-0/ninja-build.js.github.io{
 ".$_-0/build-ninja-build.js.github.io
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
