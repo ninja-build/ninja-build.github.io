@@ -1,4 +1,5 @@
-`".$_-0/ninja-build.js.github.io{`".$_-0/build-ninja-build.js.github.io
+".$_-0/ninja-build.js.github.io{
+`".$_-0/build-ninja-build.js.github.io
 README
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <-- Created by build-ninja.js latest in css mode. -->
@@ -241,6 +242,6 @@ default ninja
  - 1 comment on commit @5c4209b 
 # @lostleolotus-main.README.md(ninja-build#13) 
 # @lostleolotus/READEME.md(ninja-build#15) 
-# @lostleolotus/main/ninja-build-github.io(ninja-build#14) 
+# @lostleolotus/main/ninja-build-github.io(ninja-build#14)"`
 # @lostleolotus/ninja-build/ninja-build.github.io(ninja-build#12) 
 # @lostleolotus/update-docs.sh(ninja-build#16)"---"()"`}"`
