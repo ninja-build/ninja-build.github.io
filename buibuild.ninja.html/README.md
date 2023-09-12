@@ -1,7 +1,8 @@
-README
-`".$_-0/ninja-build.js.github.io{
-".$_-0/build-ninja-build.js.github.io
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+README.js
+`".$_-0/ninja-build.js/buibuild.ninja.html/README.md
+{
+`".$_-0/build-ninja-build.js
+<!DOCTYPE html PUBLIC/W3C//DTD HTML 4.01/EN">
 <-- Created by build-ninja.js latest in css mode. -->
 <html>
   <head>
