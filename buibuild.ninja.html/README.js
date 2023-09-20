@@ -58,7 +58,7 @@ README.js
 <span class="variable-name">ar</span> = ar
 <span class="variable-name">cflags</span> = -g -Wall -Wextra -Wno-deprecated -Wno-missing-field-initializers $
     -Wno-unused-parameter -fno-rtti -fno-exceptions -fvisibility=hidden $
-    -pipe '-DNINJA_PYTHON="python"' -O2 -DNDEBUG -DUSE_PPOLL $
+    -pipe '-DNINJA_PYTHON="python"' -O2 -DEBUG -DUSE_PPOLL $
     -DNINJA_HAVE_BROWSE -I.
 <span class="variable-name">ldflags</span> = -L<span class="variable-name">$builddir</span>
 
