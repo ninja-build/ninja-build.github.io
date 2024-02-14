@@ -5,9 +5,18 @@
     <title>build.ninja</title>
     <style type="text/css">
     <!--
+      :root {
+        color-scheme: light dark;
+      }
       body {
         color: #000000;
         background-color: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          color: #ffffff;
+          background-color: #000000;
+        }
       }
       .comment {
         /* font-lock-comment-face */
@@ -16,6 +25,11 @@
       .function-name {
         /* font-lock-function-name-face */
         color: #0000ff;
+      }
+      @media (prefers-color-scheme: dark) {
+        .function-name {
+          color: #0088ff;
+        }
       }
       .keyword {
         /* font-lock-keyword-face */
