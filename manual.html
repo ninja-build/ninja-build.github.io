@@ -54,7 +54,20 @@ div.chapter {
 p {
     margin-top: 0;
 }
-</style></head><body><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="id-1"></a>The Ninja build system</h1></div><div><div class="author"><h3 class="author"><span class="firstname">v1.12.1,</span> <span class="othername">May</span> <span class="surname">2024</span></h3></div></div></div><hr></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#_introduction">Introduction</a></span><ul><li><span class="section"><a href="#_philosophical_overview">Philosophical overview</a></span></li><li><span class="section"><a href="#_design_goals">Design goals</a></span></li><li><span class="section"><a href="#_comparison_to_make">Comparison to Make</a></span></li></ul></li><li><span class="chapter"><a href="#_using_ninja_for_your_project">Using Ninja for your project</a></span><ul><li><span class="section"><a href="#_running_ninja">Running Ninja</a></span></li><li><span class="section"><a href="#_environment_variables">Environment variables</a></span></li><li><span class="section"><a href="#_extra_tools">Extra tools</a></span></li></ul></li><li><span class="chapter"><a href="#_writing_your_own_ninja_files">Writing your own Ninja files</a></span><ul><li><span class="section"><a href="#_conceptual_overview">Conceptual overview</a></span></li><li><span class="section"><a href="#_syntax_example">Syntax example</a></span></li><li><span class="section"><a href="#_variables">Variables</a></span></li><li><span class="section"><a href="#_rules">Rules</a></span></li><li><span class="section"><a href="#_build_statements">Build statements</a></span></li><li><span class="section"><a href="#_generating_ninja_files_from_code">Generating Ninja files from code</a></span></li></ul></li><li><span class="chapter"><a href="#_more_details">More details</a></span><ul><li><span class="section"><a href="#_the_literal_phony_literal_rule">The <code class="literal">phony</code> rule</a></span></li><li><span class="section"><a href="#_default_target_statements">Default target statements</a></span></li><li><span class="section"><a href="#ref_log">The Ninja log</a></span></li><li><span class="section"><a href="#ref_versioning">Version compatibility</a></span></li><li><span class="section"><a href="#ref_headers">C/C++ header dependencies</a></span><ul><li><span class="section"><a href="#_depfile">depfile</a></span></li><li><span class="section"><a href="#_deps">deps</a></span></li></ul></li><li><span class="section"><a href="#ref_pool">Pools</a></span><ul><li><span class="section"><a href="#_the_literal_console_literal_pool">The <code class="literal">console</code> pool</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#ref_ninja_file">Ninja file reference</a></span><ul><li><span class="section"><a href="#ref_lexer">Lexical syntax</a></span></li><li><span class="section"><a href="#ref_toplevel">Top-level variables</a></span></li><li><span class="section"><a href="#ref_rule">Rule variables</a></span><ul><li><span class="section"><a href="#ref_rule_command">Interpretation of the <code class="literal">command</code> variable</a></span></li></ul></li><li><span class="section"><a href="#ref_outputs">Build outputs</a></span></li><li><span class="section"><a href="#ref_dependencies">Build dependencies</a></span></li><li><span class="section"><a href="#validations">Validations</a></span></li><li><span class="section"><a href="#_variable_expansion">Variable expansion</a></span></li><li><span class="section"><a href="#ref_scope">Evaluation and scoping</a></span></li></ul></li><li><span class="chapter"><a href="#ref_dyndep">Dynamic Dependencies</a></span><ul><li><span class="section"><a href="#_dyndep_file_reference">Dyndep file reference</a></span></li><li><span class="section"><a href="#_dyndep_examples">Dyndep Examples</a></span><ul><li><span class="section"><a href="#_fortran_modules">Fortran Modules</a></span></li><li><span class="section"><a href="#_tarball_extraction">Tarball Extraction</a></span></li></ul></li></ul></li></ul></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_introduction"></a>Introduction</h1></div></div></div><p>Ninja is yet another build system.  It takes as input the
+
+/* The following applies to the left column of a [horizontal] labeled list: */
+table.horizontal > tbody > tr > td:nth-child(1) {
+
+    /* prevent the insertion of a line-break in the middle of a label: */
+    white-space: nowrap;
+
+    /* insert a little horizontal padding between the two columns: */
+    padding-right: 1.5em;
+
+    /* right-justify labels: */
+    text-align: end;
+}
+</style></head><body><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="id-1"></a>The Ninja build system</h1></div><div><div class="author"><h3 class="author"><span class="firstname">v1.13.0,</span> <span class="othername">Jun</span> <span class="surname">2025</span></h3></div></div></div><hr></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#_introduction">Introduction</a></span><ul><li><span class="section"><a href="#_philosophical_overview">Philosophical overview</a></span></li><li><span class="section"><a href="#_design_goals">Design goals</a></span></li><li><span class="section"><a href="#_comparison_to_make">Comparison to Make</a></span></li></ul></li><li><span class="chapter"><a href="#_using_ninja_for_your_project">Using Ninja for your project</a></span><ul><li><span class="section"><a href="#_running_ninja">Running Ninja</a></span></li><li><span class="section"><a href="#_gnu_jobserver_support">GNU Jobserver support</a></span></li><li><span class="section"><a href="#_environment_variables">Environment variables</a></span></li><li><span class="section"><a href="#_extra_tools">Extra tools</a></span></li></ul></li><li><span class="chapter"><a href="#_writing_your_own_ninja_files">Writing your own Ninja files</a></span><ul><li><span class="section"><a href="#_conceptual_overview">Conceptual overview</a></span></li><li><span class="section"><a href="#_syntax_example">Syntax example</a></span></li><li><span class="section"><a href="#_variables">Variables</a></span></li><li><span class="section"><a href="#_rules">Rules</a></span></li><li><span class="section"><a href="#_build_statements">Build statements</a></span></li><li><span class="section"><a href="#_generating_ninja_files_from_code">Generating Ninja files from code</a></span></li></ul></li><li><span class="chapter"><a href="#_more_details">More details</a></span><ul><li><span class="section"><a href="#_the_literal_phony_literal_rule">The <code class="literal">phony</code> rule</a></span></li><li><span class="section"><a href="#_default_target_statements">Default target statements</a></span></li><li><span class="section"><a href="#ref_log">The Ninja log</a></span></li><li><span class="section"><a href="#ref_versioning">Version compatibility</a></span></li><li><span class="section"><a href="#ref_headers">C/C++ header dependencies</a></span><ul><li><span class="section"><a href="#_depfile">depfile</a></span></li><li><span class="section"><a href="#_deps">deps</a></span></li></ul></li><li><span class="section"><a href="#ref_pool">Pools</a></span><ul><li><span class="section"><a href="#_the_literal_console_literal_pool">The <code class="literal">console</code> pool</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#ref_ninja_file">Ninja file reference</a></span><ul><li><span class="section"><a href="#ref_lexer">Lexical syntax</a></span></li><li><span class="section"><a href="#ref_toplevel">Top-level variables</a></span></li><li><span class="section"><a href="#ref_rule">Rule variables</a></span><ul><li><span class="section"><a href="#ref_rule_command">Interpretation of the <code class="literal">command</code> variable</a></span></li></ul></li><li><span class="section"><a href="#ref_outputs">Build outputs</a></span></li><li><span class="section"><a href="#ref_dependencies">Build dependencies</a></span></li><li><span class="section"><a href="#validations">Validations</a></span></li><li><span class="section"><a href="#_variable_expansion">Variable expansion</a></span></li><li><span class="section"><a href="#ref_scope">Evaluation and scoping</a></span></li></ul></li><li><span class="chapter"><a href="#ref_dyndep">Dynamic Dependencies</a></span><ul><li><span class="section"><a href="#_dyndep_file_reference">Dyndep file reference</a></span></li><li><span class="section"><a href="#_dyndep_examples">Dyndep Examples</a></span><ul><li><span class="section"><a href="#_fortran_modules">Fortran Modules</a></span></li><li><span class="section"><a href="#_tarball_extraction">Tarball Extraction</a></span></li></ul></li></ul></li></ul></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="_introduction"></a>Introduction</h1></div></div></div><p>Ninja is yet another build system.  It takes as input the
 interdependencies of files (typically source code and output
 executables) and orchestrates building them, <span class="emphasis"><em>quickly</em></span>.</p><p>Ninja joins a sea of other build systems.  Its distinguishing goal is
 to be fast.  It is born from
@@ -185,7 +198,27 @@ in your build files).</p><p><code class="literal">ninja -h</code> prints help ou
 match those of Make; e.g <code class="literal">ninja -C build -j 20</code> changes into the
 <code class="literal">build</code> directory and runs 20 build commands in parallel.  (Note that
 Ninja defaults to running commands in parallel anyway, so typically
-you don’t need to pass <code class="literal">-j</code>.)</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_environment_variables"></a>Environment variables</h2></div></div></div><p>Ninja supports one environment variable to control its behavior:
+you don’t need to pass <code class="literal">-j</code>.)</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_gnu_jobserver_support"></a>GNU Jobserver support</h2></div></div></div><p>Since version 1.13., Ninja builds can follow the
+<a class="ulink" href="https://https://www.gnu.org/software/make/manual/html_node/Job-Slots.html" target="_top">GNU Make jobserver</a>
+client protocol. This is useful when Ninja is invoked as part of a larger
+build system controlled by a top-level GNU Make instance, or any other
+jobserver pool implementation, as it allows better coordination between
+concurrent build tasks.</p><p>This feature is automatically enabled under the following conditions:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Dry-run (i.e. <code class="literal">-n</code> or <code class="literal">--dry-run</code>) is not enabled.
+</li><li class="listitem">
+No explicit job count (e.g. <code class="literal">-j&lt;COUNT&gt;</code>) is passed on the command
+  line.
+</li><li class="listitem">
+The <code class="literal">MAKEFLAGS</code> environment variable is defined and describes a valid
+  jobserver mode using <code class="literal">--jobserver-auth=SEMAPHORE_NAME</code> on Windows, or
+  <code class="literal">--jobserver-auth=fifo:PATH</code> on Posix.
+</li></ul></div><p>In this case, Ninja will use the jobserver pool of job slots to control
+parallelism, instead of its default parallel implementation.</p><p>Note that load-average limitations (i.e. when using <code class="literal">-l&lt;count&gt;</code>)
+are still being enforced in this mode.</p><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3><p>On Posix, only the FIFO-based version of the protocol, which is
+implemented by GNU Make 4.4 and higher, is supported. Ninja will detect
+when a pipe-based jobserver is being used (i.e. when <code class="literal">MAKEFLAGS</code> contains
+<code class="literal">--jobserver-auth=&lt;read&gt;,&lt;write&gt;</code>) and will print a warning, but will
+otherwise ignore it.</p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_environment_variables"></a>Environment variables</h2></div></div></div><p>Ninja supports two environment variables to control its behavior:
 <code class="literal">NINJA_STATUS</code>, the progress status printed before the rule being run.</p><p>Several placeholders are available:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 <code class="literal">%s</code>
 </span></dt><dd>
@@ -245,7 +278,9 @@ The percentage (in ppp% format) of time elapsed out of predicted total runtime. 
 A plain <code class="literal">%</code> character.
 </dd></dl></div><p>The default progress status is <code class="literal">"[%f/%t] "</code> (note the trailing space
 to separate from the build rule). Another example of possible progress status
-could be <code class="literal">"[%u/%r/%f] "</code>.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_extra_tools"></a>Extra tools</h2></div></div></div><p>The <code class="literal">-t</code> flag on the Ninja command line runs some tools that we have
+could be <code class="literal">"[%u/%r/%f] "</code>.</p><p>If <code class="literal">MAKEFLAGS</code> is defined in the environment, if may alter how
+Ninja dispatches parallel build commands. See the GNU Jobserver support
+section for details.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_extra_tools"></a>Extra tools</h2></div></div></div><p>The <code class="literal">-t</code> flag on the Ninja command line runs some tools that we have
 found useful during Ninja’s development.  The current tools are:</p><div class="horizontal"><table class="horizontal" border="0"><colgroup><col><col></colgroup><tbody valign="top"><tr><td valign="top">
 <p>
 <code class="literal">query</code>
@@ -320,6 +355,36 @@ rebuild those targets.
 </p>
 </td></tr><tr><td valign="top">
 <p>
+<code class="literal">multi-inputs</code>
+</p>
+</td><td valign="top">
+<p>
+print one or more sets of inputs required to build targets.
+Each line will consist of a target, a delimiter, an input and a terminator character.
+The list produced by the tool can be helpful if one would like to know which targets
+that are affected by a certain input.
+</p>
+<p>The output will be a series of lines with the following elements:</p>
+<pre class="screen">&lt;target&gt; &lt;delimiter&gt; &lt;input&gt; &lt;terminator&gt;</pre>
+<p>The default <code class="literal">&lt;delimiter&gt;</code> is a single TAB character.
+The delimiter can be modified to any string using the <code class="literal">--delimiter</code> argument.</p>
+<p>The default <code class="literal">&lt;terminator&gt;</code> is a line terminator (i.e. <code class="literal">\n</code> on Posix and <code class="literal">\r\n</code> on Windows).
+The terminator can be changed to <code class="literal">\0</code> by using the <code class="literal">--print0</code> argument.</p>
+<pre class="screen"></pre>
+<p>Example usage of the <code class="literal">multi-inputs</code> tool:</p>
+<pre class="screen">ninja -t multi-inputs target1 target2 target3</pre>
+<p>Example of produced output from the <code class="literal">multi-inputs</code> tool:</p>
+<pre class="screen">target1 file1.c
+target2 file1.c
+target2 file2.c
+target3 file1.c
+target3 file2.c
+target3 file3.c</pre>
+<p><span class="emphasis"><em>Note that a given input may appear for several targets if it is used by more
+than one targets.</em></span>
+<span class="emphasis"><em>Available since Ninja 1.13.</em></span></p>
+</td></tr><tr><td valign="top">
+<p>
 <code class="literal">clean</code>
 </p>
 </td><td valign="top">
@@ -356,6 +421,17 @@ source file, prints on standard output a compilation database in the
 <a class="ulink" href="http://clang.llvm.org/docs/JSONCompilationDatabase.html" target="_top">JSON format</a> expected
 by the Clang tooling interface.
 <span class="emphasis"><em>Available since Ninja 1.2.</em></span>
+</p>
+</td></tr><tr><td valign="top">
+<p>
+<code class="literal">compdb-targets</code>
+</p>
+</td><td valign="top">
+<p>
+like <code class="literal">compdb</code>, but takes a list of targets instead of rules,
+and expects at least one target. The resulting compilation database contains
+all commands required to build the indicated targets, and <span class="emphasis"><em>only</em></span> those
+commands.
 </p>
 </td></tr><tr><td valign="top">
 <p>
@@ -666,7 +742,7 @@ A build edge, which looks like <code class="literal">build <span class="emphasis
    <span class="emphasis"><em>dependency1</em></span> <span class="emphasis"><em>dependency2</em></span></code>.
    Order-only dependencies may be tacked on the end with <code class="literal">||
    <span class="emphasis"><em>dependency1</em></span> <span class="emphasis"><em>dependency2</em></span></code>.  (See <a class="link" href="#ref_dependencies" title="Build dependencies">the reference on    dependency types</a>.)
-   Validations may be taked on the end with <code class="literal">|@ <span class="emphasis"><em>validation1</em></span> <span class="emphasis"><em>validation2</em></span></code>.
+   Validations may be tacked on the end with <code class="literal">|@ <span class="emphasis"><em>validation1</em></span> <span class="emphasis"><em>validation2</em></span></code>.
    (See <a class="link" href="#validations" title="Validations">the reference on validations</a>.)
 </p><p class="simpara">Implicit outputs <span class="emphasis"><em>(available since Ninja 1.7)</em></span> may be added before
 the <code class="literal">:</code> with <code class="literal">| <span class="emphasis"><em>output1</em></span> <span class="emphasis"><em>output2</em></span></code> and do not appear in <code class="literal">$out</code>.
@@ -845,7 +921,7 @@ which usually indicates that the command line length has been exceeded.</p></div
 </p><p class="simpara">This is the standard form of output to be used for e.g. the
 object file of a compile command.</p></li><li class="listitem"><p class="simpara">
 <span class="emphasis"><em>Implicit outputs</em></span>, as listed in a build line with the syntax <code class="literal">|
-   <span class="emphasis"><em>out1</em></span> <span class="emphasis"><em>out2</em></span></code> + before the <code class="literal">:</code> of a build line <span class="emphasis"><em>(available since
+   <span class="emphasis"><em>out1</em></span> <span class="emphasis"><em>out2</em></span></code> before the <code class="literal">:</code> of a build line <span class="emphasis"><em>(available since
    Ninja 1.7)</em></span>.  The semantics are identical to explicit outputs,
   the only difference is that implicit outputs don’t show up in the
   <code class="literal">$out</code> variable.
